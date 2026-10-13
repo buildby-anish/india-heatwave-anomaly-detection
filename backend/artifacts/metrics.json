@@ -1,0 +1,426 @@
+{
+ "svm": {
+  "split": {
+   "train_rows": 46752,
+   "test_rows": 11688,
+   "type": "stratified random 80/20",
+   "seed": 42,
+   "train_class_counts": {
+    "Low": 41668,
+    "Moderate": 4108,
+    "High": 744,
+    "Severe": 192,
+    "Extreme": 40
+   },
+   "test_class_counts": {
+    "Low": 10417,
+    "Moderate": 1027,
+    "High": 186,
+    "Severe": 48,
+    "Extreme": 10
+   }
+  },
+  "features_used": [
+   "min_temp_c",
+   "relative_humidity_pct",
+   "rainfall_mm",
+   "wind_speed_kmh",
+   "uv_index",
+   "latitude",
+   "longitude",
+   "doy_sin",
+   "doy_cos"
+  ],
+  "features_excluded": {
+   "max_temp_c, mean_temp_c, temp_range_c, heat_index_est_c": "severity is a threshold on max_temp_c; these columns reveal it directly or algebraically",
+   "heat_risk_score, heatwave_flag, anomaly_score_demo, is_anomaly, anomaly_type": "generated together with / from the label"
+  },
+  "tuning": {
+   "method": "GridSearchCV, 5-fold macro-F1, on a stratified TRAIN-only subsample",
+   "best_params": {
+    "svm__C": "100",
+    "svm__gamma": "scale"
+   },
+   "cv_macro_f1": 0.36885701497402124,
+   "seconds": 150.9
+  },
+  "rbf_svm_test": {
+   "accuracy": 0.7649726214921286,
+   "macro_f1": 0.3023547803746437,
+   "weighted_f1": 0.8165217688060936,
+   "per_class": [
+    {
+     "class": "Low",
+     "precision": 0.9833926453143536,
+     "recall": 0.7958145339349141,
+     "f1": 0.8797156046055075,
+     "support": 10417
+    },
+    {
+     "class": "Moderate",
+     "precision": 0.23991507430997877,
+     "recall": 0.5501460564751705,
+     "f1": 0.3341218214074512,
+     "support": 1027
+    },
+    {
+     "class": "High",
+     "precision": 0.10841654778887304,
+     "recall": 0.40860215053763443,
+     "f1": 0.1713641488162345,
+     "support": 186
+    },
+    {
+     "class": "Severe",
+     "precision": 0.054878048780487805,
+     "recall": 0.1875,
+     "f1": 0.08490566037735849,
+     "support": 48
+    },
+    {
+     "class": "Extreme",
+     "precision": 0.02631578947368421,
+     "recall": 0.1,
+     "f1": 0.041666666666666664,
+     "support": 10
+    }
+   ],
+   "confusion_matrix": [
+    [
+     8290,
+     1703,
+     351,
+     61,
+     12
+    ],
+    [
+     128,
+     565,
+     247,
+     66,
+     21
+    ],
+    [
+     9,
+     70,
+     76,
+     27,
+     4
+    ],
+    [
+     2,
+     15,
+     22,
+     9,
+     0
+    ],
+    [
+     1,
+     2,
+     5,
+     1,
+     1
+    ]
+   ],
+   "labels": [
+    "Low",
+    "Moderate",
+    "High",
+    "Severe",
+    "Extreme"
+   ]
+  },
+  "linear_svm_test": {
+   "accuracy": 0.863791923340178,
+   "macro_f1": 0.2975193603763792,
+   "weighted_f1": 0.873934149007221,
+   "per_class": [
+    {
+     "class": "Low",
+     "precision": 0.9573639540688966,
+     "recall": 0.9204185466065086,
+     "f1": 0.9385277995301488,
+     "support": 10417
+    },
+    {
+     "class": "Moderate",
+     "precision": 0.37395912187736563,
+     "recall": 0.4810126582278481,
+     "f1": 0.42078364565587734,
+     "support": 1027
+    },
+    {
+     "class": "High",
+     "precision": 0.0,
+     "recall": 0.0,
+     "f1": 0.0,
+     "support": 186
+    },
+    {
+     "class": "Severe",
+     "precision": 0.07514450867052024,
+     "recall": 0.2708333333333333,
+     "f1": 0.11764705882352941,
+     "support": 48
+    },
+    {
+     "class": "Extreme",
+     "precision": 0.0056179775280898875,
+     "recall": 0.1,
+     "f1": 0.010638297872340425,
+     "support": 10
+    }
+   ],
+   "confusion_matrix": [
+    [
+     9588,
+     689,
+     0,
+     55,
+     85
+    ],
+    [
+     394,
+     494,
+     1,
+     70,
+     68
+    ],
+    [
+     25,
+     111,
+     0,
+     31,
+     19
+    ],
+    [
+     7,
+     23,
+     0,
+     13,
+     5
+    ],
+    [
+     1,
+     4,
+     0,
+     4,
+     1
+    ]
+   ],
+   "labels": [
+    "Low",
+    "Moderate",
+    "High",
+    "Severe",
+    "Extreme"
+   ]
+  },
+  "majority_baseline_test": {
+   "accuracy": 0.8912559890485968,
+   "macro_f1": 0.18850033928975346,
+   "weighted_f1": 0.8400102816484265,
+   "per_class": [
+    {
+     "class": "Low",
+     "precision": 0.8912559890485968,
+     "recall": 1.0,
+     "f1": 0.9425016964487672,
+     "support": 10417
+    },
+    {
+     "class": "Moderate",
+     "precision": 0.0,
+     "recall": 0.0,
+     "f1": 0.0,
+     "support": 1027
+    },
+    {
+     "class": "High",
+     "precision": 0.0,
+     "recall": 0.0,
+     "f1": 0.0,
+     "support": 186
+    },
+    {
+     "class": "Severe",
+     "precision": 0.0,
+     "recall": 0.0,
+     "f1": 0.0,
+     "support": 48
+    },
+    {
+     "class": "Extreme",
+     "precision": 0.0,
+     "recall": 0.0,
+     "f1": 0.0,
+     "support": 10
+    }
+   ],
+   "confusion_matrix": [
+    [
+     10417,
+     0,
+     0,
+     0,
+     0
+    ],
+    [
+     1027,
+     0,
+     0,
+     0,
+     0
+    ],
+    [
+     186,
+     0,
+     0,
+     0,
+     0
+    ],
+    [
+     48,
+     0,
+     0,
+     0,
+     0
+    ],
+    [
+     10,
+     0,
+     0,
+     0,
+     0
+    ]
+   ],
+   "labels": [
+    "Low",
+    "Moderate",
+    "High",
+    "Severe",
+    "Extreme"
+   ]
+  },
+  "leakage_audit": {
+   "features": [
+    "max_temp_c",
+    "min_temp_c",
+    "mean_temp_c",
+    "temp_range_c",
+    "relative_humidity_pct",
+    "heat_index_est_c"
+   ],
+   "macro_f1": 0.9517261096781551,
+   "accuracy": 0.9924709103353867,
+   "explanation": "Near-perfect because severity is DEFINED by max_temp_c cut-offs (37/40/42/45 C). The model only re-learns the labelling rule. This is not forecasting skill and is not used anywhere else in the app."
+  },
+  "notes": [
+   "Test set was never used for tuning or for fitting the scaler.",
+   "Labels are synthetic rule outputs; scores are not evidence of real-world accuracy.",
+   "With temperature inputs removed, the remaining variables carry little information about severity, so weak minority-class scores are expected and are reported as-is."
+  ]
+ },
+ "isolation_forest": {
+  "contamination_assumed": 0.02,
+  "features": [
+   "max_temp_c",
+   "min_temp_c",
+   "relative_humidity_pct",
+   "rainfall_mm",
+   "wind_speed_kmh",
+   "uv_index"
+  ],
+  "baseline": "per-city, per-calendar-month median and std",
+  "flagged": 1169,
+  "labelled_anomalies": 1165,
+  "precision": 0.3729683490162532,
+  "recall": 0.3742489270386266,
+  "f1": 0.3736075407026564,
+  "roc_auc": 0.9228973535180581,
+  "pr_auc": 0.3636880710474606,
+  "confusion_matrix": [
+   [
+    56542,
+    733
+   ],
+   [
+    729,
+    436
+   ]
+  ],
+  "confusion_labels": [
+   "normal",
+   "anomaly"
+  ],
+  "by_type": {
+   "Humidity Outlier": {
+    "count": 282,
+    "recall": 0.09929078014184398
+   },
+   "Rainfall Outlier": {
+    "count": 270,
+    "recall": 0.9777777777777777
+   },
+   "Temperature Spike": {
+    "count": 249,
+    "recall": 0.1285140562248996
+   },
+   "Wind Outlier": {
+    "count": 240,
+    "recall": 0.37083333333333335
+   }
+  },
+  "caveat": "Contamination (2%) is a fixed assumption that happens to be close to the label rate (~2.0%); it was not tuned on labels. Labels are synthetic injected outliers, so agreement is a sanity check, not real-world validation."
+ },
+ "validation": {
+  "rows": 58440,
+  "columns": 29,
+  "date_min": "2018-01-01",
+  "date_max": "2025-12-31",
+  "cities": 20,
+  "duplicate_city_dates": 0,
+  "missing_values": {
+   "anomaly_type": 57399
+  },
+  "missing_note": "anomaly_type is empty by design for non-anomalous rows.",
+  "bad_lat_lon": 0,
+  "unknown_severity": 0,
+  "source": "Synthetic Demo Data",
+  "is_synthetic_all": true,
+  "disclaimer": "This dataset is SYNTHETIC DEMO DATA. It is not real historical weather data. Labels (severity, anomalies, risk scores) were generated by rules/simulation, so model scores measure how well a model recovers those rules, not real-world accuracy. Nothing here is an official warning.",
+  "loaded_at": "2026-10-12T18:00:12+00:00",
+  "schema": {
+   "record_id": "int64",
+   "date": "datetime64[us]",
+   "year": "int64",
+   "month": "int64",
+   "day": "int64",
+   "city": "str",
+   "state": "str",
+   "region": "str",
+   "latitude": "float64",
+   "longitude": "float64",
+   "season": "str",
+   "max_temp_c": "float64",
+   "min_temp_c": "float64",
+   "mean_temp_c": "float64",
+   "temp_range_c": "float64",
+   "relative_humidity_pct": "float64",
+   "dew_point_c_est": "float64",
+   "rainfall_mm": "float64",
+   "wind_speed_kmh": "float64",
+   "uv_index": "float64",
+   "heat_index_est_c": "float64",
+   "heatwave_flag": "int64",
+   "heatwave_severity": "str",
+   "is_anomaly": "int64",
+   "anomaly_type": "str",
+   "anomaly_score_demo": "float64",
+   "heat_risk_score": "float64",
+   "data_source": "str",
+   "is_synthetic": "bool"
+  },
+  "valid": true
+ }
+}
